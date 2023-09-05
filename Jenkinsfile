@@ -13,10 +13,14 @@ pipeline {
       stage('Pet clinic build using maven') {
         steps {
             script {
-                sh "mvn clean package -DskipTest=true -Dmaven.multiModuleProjectDirectory=/var/lib/jenkins/workspace/Docker Image Build pipeline"
-                sh "mvn compile"
-                sh "mvn package"
-            }
+                    def projectRoot = pwd()  // This gets the current directory (subdirectory of the project)
+
+                    // Run Maven with the -Dmaven.multiModuleProjectDirectory property
+                    sh """
+                        mvn -Dmaven.multiModuleProjectDirectory=$projectRoot clean package -DskipTests=true
+                        mvn -Dmaven.multiModuleProjectDirectory=$projectRoot compile
+                        mvn -Dmaven.multiModuleProjectDirectory=$projectRoot package
+                    """
         }
     }
     stage('building a docker image') {
