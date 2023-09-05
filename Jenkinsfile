@@ -22,7 +22,7 @@ pipeline {
     stage('building a docker image') {
         steps{
             script {
-                sh "docker build -t PetClinic_Part2/petclinic:1.0 ."
+                sh "docker build -t DevOps-project/petclinic:1.0 ."
             }
         }
     }
