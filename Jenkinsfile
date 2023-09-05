@@ -28,6 +28,7 @@ pipeline {
             sh "mvn package"
 
         }
+        }
     }
     }
     stage('building a docker image') {
@@ -50,4 +51,4 @@ pipeline {
         
     }
 
-    }
+    
