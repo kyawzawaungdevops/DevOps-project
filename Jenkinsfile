@@ -13,7 +13,7 @@ pipeline {
       stage('Pet clinic build using maven') {
         steps {
             script {
-                sh "mvn clean package -DskipTest=true"
+                sh "mvn clean package -DskipTest=true -Dmaven.multiModuleProjectDirectory=/var/lib/jenkins/workspace/Docker Image Build pipeline"
                 sh "mvn compile"
                 sh "mvn package"
             }
