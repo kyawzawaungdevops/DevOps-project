@@ -25,9 +25,8 @@ pipeline {
         stage('Pushing the Docker image to Docker Hub') {
             steps {
                 script {
-                    // Log in to Docker Hub and push the image
-                    sh "echo $Docker_TOKEN_PSW | docker login -u $Docker_TOKEN_USR --password-stdin"
-                    sh "docker push DevOps-project/petclinic:1.0"
+                    docker.withRegistry('https://hub.docker.com/repository/docker/testingkyaw/devops-project/', 'DockerHub-Secret') {
+                    dockerImage.push()
                 }
             }
         }
