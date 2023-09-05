@@ -13,14 +13,11 @@ pipeline {
       stage('Pet clinic build using maven') {
         steps {
             script {
-                    def projectRoot = pwd()  // This gets the current directory (subdirectory of the project)
+            
+           sh "mvn clean package -DskipTests=true"
+            sh "mvn compile"
+            sh "mvn package"
 
-                    // Run Maven with the -Dmaven.multiModuleProjectDirectory property
-                    sh """
-                        mvn -Dmaven.multiModuleProjectDirectory=$projectRoot clean package -DskipTests=true
-                        mvn -Dmaven.multiModuleProjectDirectory=$projectRoot compile
-                        mvn -Dmaven.multiModuleProjectDirectory=$projectRoot package
-                    """
         }
     }
     }
