@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Build a Docker image
-                    sh "sudo docker build -t devops-project/petclinic:1.0 ."
+                    sh "docker build -t devops-project/petclinic:1.0 ."
                 }
             }
         }
@@ -26,8 +26,8 @@ pipeline {
             steps {
                 script {
                     // Log in to Docker Hub and push the image
-                    sh "sudo echo $Docker_TOKEN_PSW | docker login -u $Docker_TOKEN_USR --password-stdin"
-                    sh "sudo docker push DevOps-project/petclinic:1.0"
+                    sh "echo $Docker_TOKEN_PSW | docker login -u $Docker_TOKEN_USR --password-stdin"
+                    sh "docker push DevOps-project/petclinic:1.0"
                 }
             }
         }
