@@ -23,6 +23,7 @@ pipeline {
                     """
         }
     }
+    }
     stage('building a docker image') {
         steps{
             script {
@@ -43,5 +44,4 @@ pipeline {
         
     }
 
-    
-
+    }
