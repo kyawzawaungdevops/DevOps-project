@@ -14,7 +14,7 @@ pipeline {
         steps {
             script {
             
-           sh "mvn clean package -DskipTests=true"
+            sh 'mvn clean package -DskipTests=true -Dmaven.multiModuleProjectDirectory=/var/lib/jenkins/workspace/Docker\ Image\ Build\ pipeline'
             sh "mvn compile"
             sh "mvn package"
 
