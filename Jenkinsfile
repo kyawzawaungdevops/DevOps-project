@@ -12,27 +12,7 @@ pipeline {
     }
     
     stages {
-        stage('Repo Scan using Sonarcloud') {
-            steps {
-                script {
-                    env.SONAR_TOKEN = "${SONAR_TOKEN}"
-                    // Execute Sonar analysis
-                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devops-projectslabs_kyaw"
-                }
-            }
-        }
-
-        stage('Pet clinic build using Maven') {
-            steps {
-                script {
-                    // Build the project
-                    sh 'mvn clean package -DskipTests=true'
-                    sh "mvn compile"
-                    sh "mvn package"
-                }
-            }
-        }
-
+        
         stage('Building a Docker image') {
             steps {
                 script {
