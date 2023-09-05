@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven-3.9.1'
-        jdk 'openjdk-17.0.7'
-    }
-
     environment {
         SONAR_TOKEN = credentials('Sonar_Token')
         Docker_TOKEN = credentials('DockerHub-Secret')
