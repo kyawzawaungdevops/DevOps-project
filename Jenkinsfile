@@ -17,22 +17,13 @@ pipeline {
         stage('Building a Docker image') {
             steps {
                 script {
-                    // Build a Docker image
-                    sh "docker build -t devops-project/petclinic:1.0 ."
+                  // Build a Docker image
+                    def customImage = docker.build('devops-project/petclinic:1.0')
+                    // Tag and push the image
+                    customImage.push()
                 }
             }
         }
 
-        stage('Pushing the Docker image to Docker Hub') {
-            steps {
-                script {
-                    // Push the Docker image to Docker Hub
-                    docker.withRegistry('https://registry.hub.docker.com', 'DockerHub-Secret') {
-                        def dockerImage = docker.image('devops-project/petclinic:1.0')
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
     }
 }
