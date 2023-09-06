@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Build a Docker image
-                    sh "docker build -t testingkyaw/petclinic:1.0 ."
+                    sh "docker build -t testingkyaw/petclinic:2.0 ."
                 }
             }
         }
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     // Define the Docker image
-                    def dockerImage = docker.build('testingkyaw/petclinic:1.0')
+                    def dockerImage = docker.build('testingkyaw/petclinic:2.0')
                     // Push the Docker image to Docker Hub
                     withDockerRegistry([credentialsId: "docker", url: "https://hub.docker.com/r/testingkyaw/petclinic"]) {
                     dockerImage.push()
