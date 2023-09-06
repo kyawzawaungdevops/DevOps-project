@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Build a Docker image
-                    sh "docker build -t testingkyaw/petclinic:2.0 ."
+                    sh "docker build -t testingkyaw/petclinic:3.0 ."
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
                     // Push the Docker image to Docker Hub
                    withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                         sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
-                        sh "docker push testingkyaw/petclinic:2.0"
+                        sh "docker push testingkyaw/petclinic:3.0"
                     }
                 }
             }
