@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Build a Docker image
-                    sh "docker build -t testingkyaw/petclinic:3.0 ."
+                    sh "docker build -t testingkyaw/petclinic:4.0 ."
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
                     // Configure Docker to use a credential helper
                     withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                         sh "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
-                        sh "docker push testingkyaw/petclinic:3.0"
+                        sh "docker push testingkyaw/petclinic:4.0"
                         sh "docker logout" // Log out after pushing the image
                     }
                 }
