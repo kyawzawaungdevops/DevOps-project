@@ -18,10 +18,12 @@ pipeline {
         stage('Repo Scan using  Sonarcloud'){
          steps {
            script{
-          env.SONAR_TOKEN = "${SONAR_TOKEN}"
+            sh "pwd"
+            sh "ls"
+          //env.SONAR_TOKEN = "${SONAR_TOKEN}"
           //sh "mvn verify sonar:sonar -Dsonar.projectKey=shruti9742327_petclinic3"
-          sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devops-projectslabs_kyaw -DskipTests=true -Dmaven.multiModuleProjectDirectory=false"
-         }
+          //sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devops-projectslabs_kyaw -DskipTests=true -Dmaven.multiModuleProjectDirectory=false"
+         //}
       }
      }
 
