@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     // Configure Docker to use a credential helper
-                    withCredentials([usernamePassword(credentialsId: 'DockerHub-Secret', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                         sh "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
                         sh "docker push testingkyaw/petclinic:3.0"
                         sh "docker logout" // Log out after pushing the image
