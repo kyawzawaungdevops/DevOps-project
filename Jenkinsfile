@@ -29,8 +29,9 @@ pipeline {
                     // Define the Docker image
                     // Removed commented-out code
                     // Push the Docker image to Docker Hub
-                    withDockerRegistry([credentialsId: "docker", url: "https://index.docker.io/"]) {
-                        docker.image('testingkyaw/petclinic:2.0').push()
+                   withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
+                        sh "docker push yourdockerusername/pet_app:1.0"
                     }
                 }
             }
