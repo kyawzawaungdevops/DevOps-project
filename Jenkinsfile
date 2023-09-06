@@ -26,6 +26,8 @@ pipeline {
         stage('Push image') {
             steps {
                 script {
+                    // Define the Docker image
+                    def dockerImage = docker.build('devops-project/petclinic:1.0')
                     // Push the Docker image to Docker Hub
                     withDockerRegistry([credentialsId: "docker", url: "https://index.docker.io/"]) {
                     dockerImage.push()
