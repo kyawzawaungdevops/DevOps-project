@@ -30,7 +30,7 @@ pipeline {
                    // def dockerImage = docker.build('testingkyaw/petclinic:2.0')
                     // Push the Docker image to Docker Hub
                     withDockerRegistry([credentialsId: "docker", url: "https://index.docker.io/"]) {
-                    docker push testingkyaw/petclinic:2.0
+                    docker push testingkyaw/petclinic:2.0 }
                     }
                 }
             }
