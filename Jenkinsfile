@@ -26,12 +26,12 @@ pipeline {
         stage('Push image') {
             steps {
                 script {
-                    // Define the Docker image
-                    // Removed commented-out code
-                    // Push the Docker image to Docker Hub
-                   withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                        sh "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
-                        sh "docker push testingkyaw/petclinic:3.0"
+                   // Define the Docker image
+                   // Removed commented-out code
+                   // Configure Docker to use a credential helper
+                   sh "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
+                   sh "docker push testingkyaw/petclinic:2.0"
+                   sh "docker logout" // Log out after pushing the image
                     }
                 }
             }
