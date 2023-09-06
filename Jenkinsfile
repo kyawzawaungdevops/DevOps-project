@@ -10,7 +10,6 @@ pipeline {
     environment {
         // Define environment variables
         SONAR_TOKEN = credentials('Sonar_Token')
-        Docker_TOKEN = credentials('DockerHub-Secret')
     }
 
     stages {
@@ -26,12 +25,11 @@ pipeline {
         stage('Push image') {
             steps {
                 script {
-                   // Define the Docker image
-                   // Removed commented-out code
-                   // Configure Docker to use a credential helper
-                   sh "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
-                   sh "docker push testingkyaw/petclinic:2.0"
-                   sh "docker logout" // Log out after pushing the image
+                    // Configure Docker to use a credential helper
+                    withCredentials([usernamePassword(credentialsId: 'DockerHub-Secret', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        sh "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
+                        sh "docker push testingkyaw/petclinic:3.0"
+                        sh "docker logout" // Log out after pushing the image
                     }
                 }
             }
