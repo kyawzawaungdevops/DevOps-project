@@ -17,10 +17,8 @@ pipeline {
         stage('Building a Docker image') {
             steps {
                 script {
-                  // Build a Docker image
-                    def customImage = docker.build('devops-project/petclinic:1.0')
-                    // Tag and push the image
-                    customImage.push()
+                    // Build a Docker image
+                    sh "docker build -t devops-project/petclinic:1.0 ."
                 }
             }
         }
