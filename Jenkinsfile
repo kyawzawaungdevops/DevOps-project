@@ -27,10 +27,10 @@ pipeline {
             steps {
                 script {
                     // Define the Docker image
-                   // def dockerImage = docker.build('testingkyaw/petclinic:2.0')
+                    // Removed commented-out code
                     // Push the Docker image to Docker Hub
                     withDockerRegistry([credentialsId: "docker", url: "https://index.docker.io/"]) {
-                    docker push testingkyaw/petclinic:2.0 }
+                        docker.image('testingkyaw/petclinic:2.0').push()
                     }
                 }
             }
