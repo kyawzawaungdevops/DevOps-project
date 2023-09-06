@@ -28,7 +28,7 @@ pipeline {
                 script {
                     // Push the Docker image to Docker Hub
                     withDockerRegistry([credentialsId: "DockerHub-Secret", url: "https://hub.docker.com/repository/docker/testingkyaw/devops-project/"]) {
-                        dockerImage.push()
+                    dockerImage.push()
                     }
                 }
             }
