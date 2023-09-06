@@ -22,6 +22,10 @@ pipeline {
                 }
             }
         }
+      stage('Push image') {
+         withDockerRegistry([ credentialsId: "DockerHub-Secret", url: "https://hub.docker.com/repository/docker/testingkyaw/devops-project/" ]) {
+         dockerImage.push()
+        }
 
     }
 }
