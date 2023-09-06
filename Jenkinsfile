@@ -18,8 +18,8 @@ pipeline {
         stage('Repo Scan using  Sonarcloud'){
          steps {
            script{
-            sh "pwd"
-            sh "ls"
+            env.SONAR_TOKEN = "${SONAR_TOKEN}"
+            sh "./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devops-projectslabs_kyaw -DskipTests=true"
       }
      }
         }
