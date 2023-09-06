@@ -31,7 +31,7 @@ pipeline {
                     // Push the Docker image to Docker Hub
                    withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                         sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
-                        sh "docker push testingkyaw/petclinic:2."
+                        sh "docker push testingkyaw/petclinic:2.0"
                     }
                 }
             }
