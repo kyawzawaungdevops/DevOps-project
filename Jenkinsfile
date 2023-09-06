@@ -19,7 +19,7 @@ pipeline {
          steps {
            script{
             env.SONAR_TOKEN = "${SONAR_TOKEN}"
-            sh "./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devops-projectslabs_kyaw -DskipTests=true"
+            sh "./mvnw sonar:sonar -Dsonar.projectKey=devops-projectslabs_kyaw -Dsonar.organization=devops-projectslabs -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN}"
       }
      }
         }
