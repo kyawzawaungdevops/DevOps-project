@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Build a Docker image
-                    sh "docker build -t devops-project/petclinic:1.0 ."
+                    sh "docker build -t tesitngkyaw/petclinic:1.0 ."
                 }
             }
         }
