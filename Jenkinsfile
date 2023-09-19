@@ -27,5 +27,14 @@ pipeline {
         }
       }
     }
+
+        stage ('sending dockerfile to the ansible server over ssh by jenkins'){
+        
+        sshagent(['ansible']) {
+            sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.234.49.203'
+            sh 'scp /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/* ubuntu@43.204.144.251:/home/ubuntu/'
+        }
+        
+    }
     }
 }
