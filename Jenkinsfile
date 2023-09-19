@@ -17,7 +17,7 @@ pipeline {
                     env.M2_HOME = mavenHome
     
     }
-
+}
     environment {
         // Define environment variables
         SONAR_TOKEN = credentials('Sonar_Token')
