@@ -4,6 +4,8 @@ pipeline {
     environment {
         // Define environment variables
         SONAR_TOKEN = credentials('Sonar_Token')
+        SSH_USERNAME = 'root'
+        SSH_PASSWORD = 'Cisco123@cisco'
     }
 
     stages {
@@ -34,10 +36,11 @@ pipeline {
             steps {
                 sshagent(['ansible']) {
                     // Connect to the first server
+                    sh "sshpass -p '${SSH_PASSWORD}' scp /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/* ${SSH_USERNAME}@172.234.49.203:/home/ubuntu/"
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.234.49.203'
 
                     // Copy files to the second server
-                    sh 'scp /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/* ubuntu@43.204.144.251:/home/ubuntu/'
+                    sh 'scp /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/* ubuntu@172.234.49.203:/home/ubuntu/'
                 }
             }
         }
