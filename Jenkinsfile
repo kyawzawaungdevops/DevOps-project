@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        // Define the tool installations
-        maven 'Maven'
-        jdk 'JDK'
-    }
 
     environment {
         // Define environment variables
