@@ -3,11 +3,8 @@ pipeline {
 
     tools {
  // Define the tool installations
-        maven 'Maven'
-        jdk 'JDK'  // This should be configured in Jenkins Global Tool Configuration
-
-        // Define Java 17 installation
-        jdk name: 'Java17', jdkType: 'jdk', version: '17'  // Customize the name as needed
+        maven 'Maven-3.9.4'
+        jdk 'openjdk-17.0.7'
     
     }
 
