@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Define the tool installations
-        maven 'Maven-3.9.1'
+        maven 'Maven-3.9.4'
         jdk 'openjdk-17.0.7'
     }
 
