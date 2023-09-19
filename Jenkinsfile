@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     // Use sshpass to provide the SSH password and copy files to the remote server
-                    sh "sshpass -p '${SSH_PASSWORD}' scp /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/* ${SSH_USERNAME}@${SSH_HOST}:/home/ubuntu/"
+                    sh "sshpass -p '${SSH_PASSWORD}' scp /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/* ${SSH_USERNAME}@${SSH_HOST}:/var/lib/app"
 
                     // SSH into the remote server and execute commands
                     def sshCommand = """
