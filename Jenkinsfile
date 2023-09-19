@@ -14,8 +14,8 @@ pipeline {
             steps {
                 script {
                     env.SONAR_TOKEN = "${SONAR_TOKEN}"
-                    sh "./mvnw clean install"
-                    sh "./mvnw sonar:sonar -Dsonar.projectKey=devops-projectslabs_kyaw -Dsonar.organization=devops-projectslabs -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN}"
+                    //sh "./mvnw clean install"
+                    sh "./mvnw sonar:sonar -Dsonar.projectKey=devops-projectslabs_pet-clinic-app-cicd-pipeline -Dsonar.organization=devops-projectslabs -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN}"
                 }
             }
         }
