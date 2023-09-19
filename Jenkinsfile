@@ -8,23 +8,7 @@ pipeline {
     }
 
     stages {
-        stage('Install and Configure Tools') {
-            steps {
-                // Install Maven 3.9.4
-                tool name: 'Maven-3.9.4', type: 'maven'
 
-                // Install Java 17 (OpenJDK)
-                tool name: 'openjdk-17.0.7', type: 'jdk'
-
-                // Set environment variables
-                script {
-                    def mavenHome = tool name: 'Maven-3.9.4', type: 'maven'
-                    def javaHome = tool name: 'Java-17', type: 'jdk'
-                    env.PATH = "${javaHome}/bin:${mavenHome}/bin:${env.PATH}"
-                    env.M2_HOME = mavenHome
-                }
-            }
-        }
 
         stage('Repo Scan using Sonarcloud') {
             steps {
