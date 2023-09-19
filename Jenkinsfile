@@ -14,7 +14,7 @@ pipeline {
                 tool name: 'Maven-3.9.4', type: 'maven'
 
                 // Install Java 17 (OpenJDK)
-                tool name: 'Java-17', type: 'jdk'
+                tool name: 'openjdk-17.0.7', type: 'jdk'
 
                 // Set environment variables
                 script {
