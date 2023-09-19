@@ -38,6 +38,9 @@ pipeline {
                     // Connect to the first server
                     sh "sshpass -p '${SSH_PASSWORD}' scp /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/* ${SSH_USERNAME}@172.234.49.203:/home/ubuntu/"
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.234.49.203'
+                    expect \"password:\"
+                    send \"${SSH_PASSWORD}\\r\"
+                    expect eof
 
                     // Copy files to the second server
                     sh 'scp /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/* ubuntu@172.234.49.203:/home/ubuntu/'
