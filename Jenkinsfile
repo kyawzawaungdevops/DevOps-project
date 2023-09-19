@@ -19,5 +19,13 @@ pipeline {
                 }
             }
         }
+
+            stage('Pet clinic build using maven') {
+            steps {
+                script {
+                 sh "./mvnw clean install"
+        }
+      }
+    }
     }
 }
