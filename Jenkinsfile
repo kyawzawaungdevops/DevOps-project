@@ -3,8 +3,18 @@ pipeline {
 
     tools {
  // Define the tool installations
-        maven 'Maven-3.9.4'
-        jdk 'openjdk-17.0.7'
+                // Install Maven 3.9.4
+                tool name: 'Maven-3.9.4', type: 'maven'
+
+                // Install Java 17 (OpenJDK)
+                tool name: 'Java-17', type: 'jdk'
+
+                // Set environment variables
+                script {
+                    def mavenHome = tool name: 'Maven-3.9.4', type: 'maven'
+                    def javaHome = tool name: 'Java-17', type: 'jdk'
+                    env.PATH = "${javaHome}/bin:${mavenHome}/bin:${env.PATH}"
+                    env.M2_HOME = mavenHome
     
     }
 
