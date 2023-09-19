@@ -4,7 +4,7 @@ pipeline {
     tools {
         // Define the tool installations
         maven 'Maven'
-        jdk 'openjdk'
+        jdk 'JDK'
     }
 
     environment {
