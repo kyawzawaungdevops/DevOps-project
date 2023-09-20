@@ -54,5 +54,19 @@ pipeline {
                 }
             }
         }
+    stage ('Push docker image to docker hub'){
+        steps {
+            withCredentials([string(credentialsId: 'Docker_Password', variable: 'Docker_Password')]) {
+                    def sshCommand = """
+                        sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
+                        docker login -u testingkyaw -p ${Docker_Password}
+                        docker image push mynameismohan/$JOB_NAME:v1.$BUILD_ID
+                        docker image push mynameismohan/$JOB_NAME:latest
+                        EOF
+                    """
+                    sh "${sshCommand}"
+                }
+        }
+     }
     }
 }
