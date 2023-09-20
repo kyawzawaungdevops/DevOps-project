@@ -62,8 +62,7 @@ pipeline {
                             sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                             docker login -u testingkyaw -p \${Docker_Password}
                             docker push ${lowercaseRepoName}:${lowercaseTag}
-                            docker push ${lowercaseRepoName}:${latestTag}
-                            exit
+                            docker push ${lowercaseRepoName}:latest
                             EOF
                         """
                         sh "${sshCommand}"
