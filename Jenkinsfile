@@ -39,44 +39,55 @@ pipeline {
                     // Use sshpass to provide the SSH password and copy files to the remote server
                     sh "sshpass -p '${SSH_PASSWORD}' scp -r /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/target/* ${SSH_USERNAME}@${SSH_HOST}:/var/lib/app"
 
-                    // Convert the repository name and tag to lowercase
-                    def lowercaseRepoName = "testingkyaw/${JOB_NAME}".toLowerCase()
-                    def lowercaseTag = "v1.${BUILD_ID}".toLowerCase()
-
-                    // SSH into the remote server to build the Docker image
-                    def sshCommand = """
-                        sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
-                        cd /var/lib/app
-                        docker build -t ${lowercaseRepoName}:${lowercaseTag} .
-                        exit
-                        EOF
-                    """
-                    sh "${sshCommand}"
+                    // Tag the Docker image
+                    tagDockerImage("testingkyaw/${JOB_NAME}")
                 }
             }
         }
 
         stage('Push Docker image to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'Docker_Password', variable: 'Docker_Password')]) {
-                    script {
-                        // Convert the repository name and tag to lowercase
-                        def lowercaseRepoName = "testingkyaw/${JOB_NAME}".toLowerCase()
-                        def lowercaseTag = "v1.${BUILD_ID}".toLowerCase()
-                        def latestTag = "latest"
-                        // SSH into the remote server to push the Docker image
-                        def sshCommand = """
-                            sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
-                            docker login -u testingkyaw -p \${Docker_Password}
-                            docker push ${lowercaseRepoName}:${lowercaseTag}
-                            docker push ${lowercaseRepoName}:${latestTag}
-                            exit
-                            EOF
-                        """
-                        sh "${sshCommand}"
-                    }
+                script {
+                    // Tag the Docker image
+                    tagDockerImage("testingkyaw/${JOB_NAME}")
+
+                    // Push the Docker image
+                    pushDockerImage("testingkyaw/${JOB_NAME}")
                 }
             }
         }
+    }
+}
+
+// Function to tag Docker image
+def tagDockerImage(repoName) {
+    def lowercaseRepoName = repoName.toLowerCase()
+    def lowercaseTag = "v1.${BUILD_ID}".toLowerCase()
+    def lowercaseLatestTag = "latest"  // Adding a tag for "latest"
+
+    sh """
+        cd /var/lib/app
+        docker build -t ${lowercaseRepoName}:${lowercaseTag} .
+        docker tag ${lowercaseRepoName}:${lowercaseTag} ${lowercaseRepoName}:${lowercaseLatestTag}  # Tag it as "latest"
+    """
+}
+
+// Function to push Docker image
+def pushDockerImage(repoName) {
+    def lowercaseRepoName = repoName.toLowerCase()
+    def lowercaseTag = "v1.${BUILD_ID}".toLowerCase()
+    def lowercaseLatestTag = "latest"
+
+    withCredentials([string(credentialsId: 'Docker_Password', variable: 'Docker_Password')]) {
+        // Use triple-single-quotes for multi-line sshCommand
+        def sshCommand = """
+            sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
+            docker login -u testingkyaw -p \${Docker_Password}
+            docker push ${lowercaseRepoName}:${lowercaseTag}
+            docker push ${lowercaseRepoName}:${lowercaseLatestTag}
+            exit
+EOF
+"""
+        sh "${sshCommand}"
     }
 }
