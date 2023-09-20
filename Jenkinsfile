@@ -50,5 +50,14 @@ pipeline {
                 }
             }
         }
+            stage ('Build the Docker Image in the ansible server'){
+        
+        
+        sshagent(['ansible']) {
+            sh 'ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} cd /var/lib/app'
+            sh 'ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+        }
+        
     }
+  }
 }
