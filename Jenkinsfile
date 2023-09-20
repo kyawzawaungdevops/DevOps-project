@@ -64,7 +64,7 @@ pipeline {
                             docker push ${lowercaseRepoName}:${lowercaseTag}
                             //docker push ${lowercaseRepoName}:latest
                             EOF
-                        """
+                        '''
                         sh "${sshCommand}"
                     }
                 }
