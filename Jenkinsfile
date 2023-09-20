@@ -25,7 +25,7 @@ pipeline {
             }
         }
 
-        stage('Pet clinic build using maven') {
+        stage('Pet clinic build using Maven') {
             steps {
                 script {
                     sh "./mvnw clean install"
@@ -44,9 +44,7 @@ pipeline {
                     def sshCommand = """
                         sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                         cd /var/lib/app
-                        echo "HELLO"
-                        echo ${lowercaseTag}
-                        docker image build -t ${lowercaseTag} .
+                        docker build -t ${lowercaseTag} .
                         exit
                         EOF
                     """
@@ -54,19 +52,23 @@ pipeline {
                 }
             }
         }
-    stage ('Push docker image to docker hub'){
-        steps {
-            withCredentials([string(credentialsId: 'Docker_Password', variable: 'Docker_Password')]) {
-                    def sshCommand = """
-                        sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
-                        docker login -u testingkyaw -p ${Docker_Password}
-                        docker image push mynameismohan/$JOB_NAME:v1.$BUILD_ID
-                        docker image push mynameismohan/$JOB_NAME:latest
-                        EOF
-                    """
-                    sh "${sshCommand}"
+
+        stage('Push Docker image to Docker Hub') {
+            steps {
+                withCredentials([string(credentialsId: 'Docker_Password', variable: 'Docker_Password')]) {
+                    script {
+                        def sshCommand = """
+                            sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
+                            docker login -u testingkyaw -p \${Docker_Password}
+                            docker push mynameismohan/${JOB_NAME}:${BUILD_ID}
+                            docker push mynameismohan/${JOB_NAME}:latest
+                            exit
+                            EOF
+                        """
+                        sh "${sshCommand}"
+                    }
                 }
+            }
         }
-     }
     }
 }
