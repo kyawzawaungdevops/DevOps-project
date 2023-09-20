@@ -60,9 +60,8 @@ pipeline {
                         def sshCommand = """
                             sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                             docker login -u testingkyaw -p \${Docker_Password}
-                            docker push mynameismohan/${JOB_NAME}:${BUILD_ID}
-                            docker push mynameismohan/${JOB_NAME}:latest
-                            exit
+                            docker push ${lowercaseRepoName}:${lowercaseTag}
+                            docker push ${lowercaseRepoName}:latest
                             EOF
                         """
                         sh "${sshCommand}"
