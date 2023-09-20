@@ -37,11 +37,13 @@ pipeline {
                     // Convert the repository name and tag to lowercase
                     def lowercaseRepoName = "testingkyaw/${JOB_NAME}".toLowerCase()
                     def lowercaseTag = "v1.${BUILD_ID}".toLowerCase()
+                    def latestTag = "latest"
                     // SSH into the remote server to build the Docker image
                     def sshCommand = """
                         sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                         cd /var/lib/app
                         docker build -t ${lowercaseRepoName}:${lowercaseTag} .
+                        docker build -t ${lowercaseRepoName}:${latestTag} .
                         exit
 EOF
 """
@@ -62,6 +64,7 @@ EOF
                             sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                             docker login -u testingkyaw -p \${Docker_Password}
                             docker push ${lowercaseRepoName}:${lowercaseTag}
+                            docker push ${lowercaseRepoName}:${latestTag}
                             exit
 EOF
 """
