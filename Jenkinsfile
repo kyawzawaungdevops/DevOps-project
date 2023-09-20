@@ -41,26 +41,26 @@ pipeline {
 
                     // SSH into the remote server and execute commands
                     def sshCommand = """
-                        sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST}
-                        expect \"password:\"
-                        send \"${SSH_PASSWORD}\\r\"
+                        sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
+                        expect "password:"
+                        send "${SSH_PASSWORD}\\r"
                         expect eof
+                        EOF
                     """
                     sh "expect -c '${sshCommand}'"
                 }
             }
         }
-        stage ('Build the Docker Image in the ansible server'){
-          steps{
+
+        stage('Build the Docker Image in the ansible server') {
+            steps {
+                script {
                     def sshCommand = """
-                        sh 'ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} cd /var/lib/app'
-                        sh 'ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} docker image build -t $JOB_NAME:v1.$BUILD_ID .' 
-                        expect \"password:\"
-                        send \"${SSH_PASSWORD}\\r\"
-                        expect eof
+                        ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} 'cd /var/lib/app && docker image build -t $JOB_NAME:v1.$BUILD_ID .'
                     """
                     sh "expect -c '${sshCommand}'"
-          }
+                }
+            }
+        }
     }
-  }
 }
