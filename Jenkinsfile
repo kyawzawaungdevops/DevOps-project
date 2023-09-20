@@ -63,7 +63,7 @@ pipeline {
                             docker login -u testingkyaw -p \${Docker_Password}
                             docker push ${lowercaseRepoName}:${lowercaseTag}
                             //docker push ${lowercaseRepoName}:latest
-                            //EOF
+                            EOF
                         """
                         sh "${sshCommand}"
                     }
