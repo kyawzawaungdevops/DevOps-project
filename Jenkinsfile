@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     environment {
         // Define environment variables
         SONAR_TOKEN = credentials('Sonar_Token')
@@ -8,7 +7,6 @@ pipeline {
         SSH_PASSWORD = 'Cisco123@cisco'
         SSH_HOST = '172.234.49.203'
     }
-
     stages {
         stage('Repo Scan using Sonarcloud') {
             steps {
@@ -24,7 +22,6 @@ pipeline {
                 }
             }
         }
-
         stage('Pet clinic build using Maven') {
             steps {
                 script {
@@ -32,7 +29,6 @@ pipeline {
                 }
             }
         }
-
         stage('Sending Dockerfile to the Ansible server over SSH by Jenkins') {
             steps {
                 script {
@@ -76,7 +72,7 @@ def tagDockerImage(repoName) {
 def pushDockerImage(repoName) {
     def lowercaseRepoName = repoName.toLowerCase()
     def lowercaseTag = "v1.${BUILD_ID}".toLowerCase()
-    def lowercaseLatestTag = "latest"
+    //def lowercaseLatestTag = "latest"
 
     withCredentials([string(credentialsId: 'Docker_Password', variable: 'Docker_Password')]) {
         // Use triple-single-quotes for multi-line sshCommand
@@ -84,7 +80,7 @@ def pushDockerImage(repoName) {
             sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
             docker login -u testingkyaw -p \${Docker_Password}
             docker push ${lowercaseRepoName}:${lowercaseTag}
-            docker push ${lowercaseRepoName}:${lowercaseLatestTag}
+            //docker push ${lowercaseRepoName}:${lowercaseLatestTag}
             exit
 EOF
 """
