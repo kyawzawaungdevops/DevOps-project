@@ -39,6 +39,7 @@ pipeline {
                         cd /var/lib/app
                         export KUBECONFIG=/root/kubeconfig.yaml
                         kubectl apply -f deployment.yaml
+                        kubectl apply -f service.yaml
                         exit
 EOF
 """
