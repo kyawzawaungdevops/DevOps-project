@@ -83,8 +83,9 @@ EOF
                         sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                         cd /var/lib/app
                         export KUBECONFIG=/root/kubeconfig.yaml
-                        kubectl apply -f deployment.yaml
-                        kubectl apply -f service.yaml
+                        //kubectl apply -f deployment.yaml
+                        //kubectl apply -f service.yaml
+                        ansible-playbook ansible.yaml
                         exit
 EOF
 """
