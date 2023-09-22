@@ -6,8 +6,8 @@ metadata:
     app: webapp-deployment
 spec:
   ports:
-    - port: 8080                               
-      targetPort: 80
+    - port: 80                        
+      targetPort: 8080
       nodePort: 32145
   selector:
     app: webapp-deployment                    
