@@ -29,28 +29,6 @@ pipeline {
                 }
             }
         }
-        stage('Sending Dockerfile to the Ansible server over SSH by Jenkins') {
-            steps {
-                script {
-                    // Use sshpass to provide the SSH password and copy files to the remote server
-                    sh "sshpass -p '${SSH_PASSWORD}' scp -r /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/target/* ${SSH_USERNAME}@${SSH_HOST}:/var/lib/app"
-                    // Convert the repository name and tag to lowercase
-                    def lowercaseRepoName = "testingkyaw/\${JOB_NAME}".toLowerCase()
-                    def lowercaseTag = "v1.\${BUILD_ID}".toLowerCase()
-                    def latestTag = "latest"
-                    // SSH into the remote server to build the Docker image
-                    def sshCommand = """
-                        sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
-                        cd /var/lib/app
-                        docker build -t ${lowercaseRepoName}:${lowercaseTag} .
-                        docker build -t ${lowercaseRepoName}:${latestTag} .
-                        exit
-EOF
-"""
-                    sh "${sshCommand}"
-                }
-            }
-        }
         stage('Push Docker image to Docker Hub') {
             steps {
                 withCredentials([string(credentialsId: 'Docker_Password', variable: 'Docker_Password')]) {
