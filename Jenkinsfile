@@ -85,7 +85,8 @@ EOF
                         export KUBECONFIG=/root/kubeconfig.yaml
                         //kubectl apply -f deployment.yaml
                         //kubectl apply -f service.yaml
-                        ansible-playbook -i inventory.ini ansible.yaml
+                        //ansible-playbook -i inventory.ini ansible.yaml
+                        ansible-playbook -i localhost_inventory.yaml ansible.yaml
                         exit
 EOF
 """
