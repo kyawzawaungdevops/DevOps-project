@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     // Use sshpass to provide the SSH password and copy files to the remote server
-                    sh "sshpass -p '${SSH_PASSWORD}' scp -r /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/kubernetes/* ${SSH_USERNAME}@${SSH_HOST}:/var/lib/app"
+                    sh "sshpass -p '${SSH_PASSWORD}' scp -r /var/lib/jenkins/workspace/Pet-Clinic-App-CICD-pipeline/Kubernetes/* ${SSH_USERNAME}@${SSH_HOST}:/var/lib/app"
                     def sshCommand = """
                         sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                         cd /var/lib/app
