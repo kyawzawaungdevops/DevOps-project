@@ -29,29 +29,7 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker image to Docker Hub') {
-            steps {
-                withCredentials([string(credentialsId: 'Docker_Password', variable: 'Docker_Password')]) {
-                    script {
-                        // Convert the repository name and tag to lowercase
-                        def lowercaseRepoName = "testingkyaw/\${JOB_NAME}".toLowerCase()
-                        def lowercaseTag = "v1.\${BUILD_ID}".toLowerCase()
-                        def latestTag = "latest"
-                        // SSH into the remote server to push the Docker image
-                        def sshCommand = """
-                            sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
-                            docker login -u testingkyaw -p \${Docker_Password}
-                            docker push \${lowercaseRepoName}:\${lowercaseTag}
-                            docker push \${lowercaseRepoName}:\${latestTag}
-                            exit
-EOF
-"""
-                        sh "${sshCommand}"
-                    }
-                }
-            }
-        }
-        stage('Deploying Kubernetes Manifests on Ansible Server over SSH by Jenkins') {
+   stage('Deploying Kubernetes Manifests on Ansible Server over SSH by Jenkins') {
             steps {
                 script {
                     // Use sshpass to provide the SSH password and copy files to the remote server
