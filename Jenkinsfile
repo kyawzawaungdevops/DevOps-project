@@ -37,6 +37,7 @@ pipeline {
                     def sshCommand = """
                         sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                         cd /var/lib/app
+                        export KUBECONFIG=/root/kubeconfig.yaml
                         kubectl apply -f deployment.yaml
                         exit
 EOF
