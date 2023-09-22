@@ -14,7 +14,7 @@ spec:
       spec:
          containers:
             - name: webapp-deployment
-              image: testingkyaw/pet-clinic-app-cicd-pipeline:v1.104
+              image: testingkyaw/pet-clinic-app-cicd-pipeline:v1.105
               imagePullPolicy: Always
               ports:
                - containerPort: 8080
