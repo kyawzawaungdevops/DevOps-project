@@ -5,6 +5,6 @@ RUN mkdir -p /home/app
 WORKDIR /home/app
 COPY ./spring-petclinic-3.1.0-SNAPSHOT.jar /home/app
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["java", "-jar", "spring-petclinic-3.1.0-SNAPSHOT.jar"]
