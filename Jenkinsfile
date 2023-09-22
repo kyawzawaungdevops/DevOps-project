@@ -30,7 +30,7 @@ pipeline {
             }
         }
 
-    stage('Sending Dockerfile to the Ansible server over SSH by Jenkins') {
+    stage('SendDockerfile to the Ansible server over SSH by Jenkins and build Docker image') {
             steps {
                 script {
                     // Use sshpass to provide the SSH password and copy files to the remote server
