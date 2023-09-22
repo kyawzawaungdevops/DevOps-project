@@ -42,8 +42,8 @@ pipeline {
                     def sshCommand = """
                         sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST} <<EOF
                         cd /var/lib/app
-                        docker build -t \${lowercaseRepoName}:\${lowercaseTag} .
-                        docker build -t \${lowercaseRepoName}:\${latestTag} .
+                        docker build -t ${lowercaseRepoName}:${lowercaseTag} .
+                        docker build -t ${lowercaseRepoName}:${latestTag} .
                         exit
 EOF
 """
