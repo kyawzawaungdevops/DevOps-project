@@ -1,11 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        // Define environment variables
-        //SONAR_TOKEN = credentials('Sonar_Token')
-        //DOCKER_TOKEN = credentials ('docker')
-    }
+
     
 
     stages {
