@@ -4,7 +4,7 @@ pipeline {
         stage('Pet clinic build using maven') {
             steps {
                 script {
-                  sh "mvn clean install -DskipTests,spring.profiles.active=mysql"
+                  sh "mvn clean install -DskipTests"
         }
       }
     }
