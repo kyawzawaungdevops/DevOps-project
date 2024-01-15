@@ -1,9 +1,5 @@
 pipeline {
     agent any
-
-
-    
-
     stages {
         stage('Pet clinic build using maven') {
             steps {
