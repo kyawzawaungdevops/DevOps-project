@@ -1,10 +1,11 @@
-FROM openjdk:22-jdk-bullseye
+FROM techiescamp/jre-17:1.0.0
+WORKDIR /app
 
-RUN mkdir -p /home/app
+# Copy the JAR file (/app)
+COPY /target/*.jar ./java.jar
 
-WORKDIR /home/app
-COPY ./spring-petclinic-3.1.0-SNAPSHOT.jar /home/app
-
+# Expose the port the app runs on
 EXPOSE 8080
 
-CMD ["java", "-jar", "spring-petclinic-3.1.0-SNAPSHOT.jar"]
+# Run the jar file
+CMD ["java", "-jar", "java.jar","--spring.profiles.active=mysql"]
