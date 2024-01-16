@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     stages {
         stage('Pet clinic build using Maven') {
             steps {
@@ -8,6 +9,7 @@ pipeline {
                 }
             }
         }
+
         stage('Building a Docker image') {
             steps {
                 script {
@@ -16,20 +18,19 @@ pipeline {
                 }
             }
         }
-     stage('Build and Push Docker Image') {
-      environment {
-        REGISTRY_CREDENTIALS = credentials('docker-cred')
-      }
-      steps {
-        script {
-            docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
-            //dockerImage.push()
-            sh "docker push testingkyaw/pettwo:${BUILD_NUMBER}"
-                
+
+        stage('Build and Push Docker Image') {
+            environment {
+                REGISTRY_CREDENTIALS = credentials('docker-cred')
+            }
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
+                        // Push the Docker image
+                        sh "docker push testingkyaw/pettwo:${BUILD_NUMBER}"
+                    }
+                }
             }
         }
-      }
-    }
-
     }
 }
