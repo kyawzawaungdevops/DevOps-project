@@ -17,8 +17,9 @@ pipeline {
             }
         }
         stage('Push image') {
-        withDockerRegistry([ credentialsId: "docker-cred", url: "" ]) {
-        dockerImage.push()
+             steps {
+                         withDockerRegistry([ credentialsId: "docker-cred", url: "" ]) {
+                         dockerImage.push()
         }
     }    
   
