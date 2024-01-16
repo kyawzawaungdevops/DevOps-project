@@ -20,14 +20,11 @@ pipeline {
         }
 
         stage('Build and Push Docker Image') {
-            environment {
-                REGISTRY_CREDENTIALS = credentials('docker-cred')
-            }
 
             steps {
                 script {
                     // Push the Docker image to the registry
-                    docker.withRegistry('https://index.docker.io/v1/', REGISTRY_CREDENTIALS) {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
                         sh "docker push testingkyaw/pettwo:${BUILD_NUMBER}"
                     }
                 }
