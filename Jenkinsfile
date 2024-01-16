@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to the registry
-                    docker.withRegistry(REGISTRY_URL, docker-cred) {
+                    docker.withRegistry(REGISTRY_URL, REGISTRY_CREDENTIALS ) {
                         sh "docker push ${DOCKER_IMAGE_TAG}"
                     }
                 }
