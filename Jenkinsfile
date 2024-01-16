@@ -12,22 +12,10 @@ pipeline {
             steps {
                 script {
                     // Build a Docker image
-                    sh "docker build -t testingkyaw/pettwo:5.0 ."
+                    sh "docker build -t testingkyaw/pettwo:${BUILD_NUMBER} ."
                 }
             }
         }
-        stage('Push image') {
-            steps {
-                script {
-                    // Use your Docker registry URL
-                    def registryUrl = "docker push testingkyaw/pettwo"
 
-                    // Push the Docker image
-                    withDockerRegistry([credentialsId: "docker-cred", url: registryUrl]) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
     }
 }
