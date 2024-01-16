@@ -1,10 +1,19 @@
 pipeline {
     agent any
 
+    environment {
+        // Define environment variables here
+        REGISTRY_URL = 'https://index.docker.io/v1/'
+        DOCKER_IMAGE_NAME = "testingkyaw/pettwo"
+        DOCKER_IMAGE_TAG = "${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
+        REGISTRY_CREDENTIALS = credentials('docker-cred')
+    }
+
     stages {
         stage('Pet clinic build using Maven') {
             steps {
                 script {
+                    // Execute Maven build
                     sh "mvn clean install -DskipTests"
                 }
             }
@@ -14,20 +23,17 @@ pipeline {
             steps {
                 script {
                     // Build a Docker image
-                    sh "docker build -t testingkyaw/pettwo:${BUILD_NUMBER} ."
+                    sh "docker build -t ${DOCKER_IMAGE_TAG} ."
                 }
             }
         }
 
         stage('Build and Push Docker Image') {
-            environment {
-                REGISTRY_CREDENTIALS = credentials('docker-cred')
-            }
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
-                        // Push the Docker image
-                        sh "docker push testingkyaw/pettwo:${BUILD_NUMBER}"
+                    // Push the Docker image to the registry
+                    docker.withRegistry(REGISTRY_URL, REGISTRY_CREDENTIALS) {
+                        sh "docker push ${DOCKER_IMAGE_TAG}"
                     }
                 }
             }
