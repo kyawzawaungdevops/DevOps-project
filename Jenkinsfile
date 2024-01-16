@@ -23,7 +23,9 @@ pipeline {
       steps {
         script {
             docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
-            dockerImage.push()
+            //dockerImage.push()
+            sh "docker push testingkyaw/pettwo:${BUILD_NUMBER}"
+                
             }
         }
       }
