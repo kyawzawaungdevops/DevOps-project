@@ -77,7 +77,7 @@ metadata:
   name: mysql-persistent-storage
 spec:
   capacity:
-    storage: 50Gi
+    storage: 30Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
