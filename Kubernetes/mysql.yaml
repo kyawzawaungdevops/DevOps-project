@@ -83,7 +83,7 @@ spec:
   awsElasticBlockStore:
     volumeID: vol-0f5b8c57232737d67
     fsType: ext4
-
+  storageClassName: aws-ebs-sc
 ---
 apiVersion: v1
 kind: Secret
