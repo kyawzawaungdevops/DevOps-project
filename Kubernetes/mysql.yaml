@@ -81,6 +81,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
+  storageClassName: gp2
   awsElasticBlockStore:
     volumeID: vol-018fcd930d8befb8b
     fsType: ext4
