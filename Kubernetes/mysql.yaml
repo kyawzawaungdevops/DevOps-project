@@ -15,14 +15,12 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
-  labels:
-    app: petclinic
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: 1Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -77,11 +75,9 @@ metadata:
   name: mysql-persistent-storage
 spec:
   capacity:
-    storage: 30Gi
-  volumeMode: Filesystem
+    storage: 2Gi
   accessModes:
     - ReadWriteOnce
-  storageClassName: gp2
   awsElasticBlockStore:
     volumeID: vol-018fcd930d8befb8b
     fsType: ext4
