@@ -15,7 +15,17 @@ spec:
       spec:
          containers:
             - name: webapp-deployment
-              image: brightcomputing/guestbook-frontend
+              image: testingkyaw/pettwo:24
               imagePullPolicy: Always
+              env:
+              - name: MYSQL_PASS
+                valueFrom:
+                  secretKeyRef:
+                    name: mysql-pass
+                    key: password
+              - name: MYSQL_URL
+                value: jdbc:mysql://petclinic-mysql:3306/petclinic-database
+              - name: MYSQL_USER
+                value: petlcinic-user
               ports:
                - containerPort: 8080
