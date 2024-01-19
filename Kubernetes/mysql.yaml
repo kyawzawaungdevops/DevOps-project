@@ -18,7 +18,6 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: aws-ebs-sc
   resources:
     requests:
       storage: 1Gi
